@@ -26,16 +26,16 @@ exports.handleRequest = function (req, res) {
 // POST request
   	if(req.method==='POST'){
   	// read archives/sites.txt 
-  	req.on('data',function (chunk){
-  		var text = chunk.toString();
-  		console.log(text = text.split('=')[1]);
-  	})
 	fs.readFile(root + '/archives/sites.txt', function (err, txt) {
-		// console.log('txt: ', txt.toString())	
+		console.log ('txt.toString()', txt.toString());
 	})
 
+  	req.on('data',function (chunk){
+  		var text = chunk.toString();
+  		text = text.split('=')[1];
+  	})
+  	//console.log('siteList ', siteList);
 	}
-
 };
 
 
