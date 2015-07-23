@@ -14,18 +14,18 @@ exports.handleRequest = function (req, res) {
     	fs.createReadStream('/Users/student/Desktop/2015-06-web-historian/web/public/index.html');
 
     	if (err) {
-    		//console.log('err: ',err)
+    		console.log('err: ',err)
        		throw err; 
     	} 
     	res.writeHeader(200, {"Content-Type": "text/html"})
-    	res.write(html.toString()) 
+    		res.write(html.toString())
         res.end();  
 		})
   	}
   if(req.method==='POST'){
   	//do somethinga
   	console.log('got this request')
+	//res.end(archive.paths.list);
 	}
 
-  res.end(archive.paths.list);
 };
