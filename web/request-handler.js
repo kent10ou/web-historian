@@ -1,31 +1,59 @@
-
 var fs = require('fs');
 var url = require('url');
 var path = require('path');
 var archive = require('../helpers/archive-helpers');
 // require more modules/folders here!
+var root = '/Users/student/Desktop/2015-06-web-historian'
 
 exports.handleRequest = function (req, res) {
-  if(req.method==='GET'){
-  	//console.log ('fs',fs) //to see if it is what we think it is
-  	//console.log('fs.readFile', fs.readFile) //to see if it is a function
-  		var read = fs.readFile('/Users/student/Desktop/2015-06-web-historian/web/public/index.html', function (err, html) {
-    	console.log('html',html.toString()) //to see what this gives us
-    	fs.createReadStream('/Users/student/Desktop/2015-06-web-historian/web/public/index.html');
-
-    	if (err) {
-    		console.log('err: ',err)
-       		throw err; 
-    	} 
-    	res.writeHeader(200, {"Content-Type": "text/html"})
-    		res.write(html.toString())
-        res.end();  
+// GET request	
+	if(req.method==='GET'){
+		//following functoin turns index into parseable HTML
+		var read = fs.readFile(root + '/web/public/index.html', function (err, html) {
+	//error handling
+	if (err) {
+		console.log('err: ',err)
+		throw err; 
+	}
+	//write header for successful requests 
+	res.writeHeader(200, {"Content-Type": "text/html"})
+	//writes parseable HTML to response
+	res.write(html.toString())
+	res.end();  
 		})
-  	}
-  if(req.method==='POST'){
-  	//do somethinga
-  	console.log('got this request')
-	//res.end(archive.paths.list);
+	}
+  	
+// POST request
+  	if(req.method==='POST'){
+  	// read archives/sites.txt 
+  	req.on('data',function (chunk){
+  		var text = chunk.toString();
+  		console.log(text = text.split('=')[1]);
+  	})
+	fs.readFile(root + '/archives/sites.txt', function (err, txt) {
+		// console.log('txt: ', txt.toString())	
+	})
+
 	}
 
 };
+
+
+
+
+
+/*
+process.stdin.on('data', function(chunk) {
+    lines = chunk.split("\n");
+
+    lines[0] = lingeringLine + lines[0];
+    lingeringLine = lines.pop();
+
+    lines.forEach(processLine);
+});
+
+process.stdin.on('end', function() {
+    processLine(lingeringLine);
+});
+*/
+
